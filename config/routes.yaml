@@ -8,6 +8,6 @@ home:
     path: /
     controller: App\Controller\IndexController::index
 
-animal_adicionar:
+animal_cadastrar:
     path: /animal/cadastrar
     controller: App\Controller\AnimalController::adicionar
