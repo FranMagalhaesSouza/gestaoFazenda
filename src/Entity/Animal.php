@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AnimalRepository::class)]
 class Animal
@@ -17,10 +18,22 @@ class Animal
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 5, scale: 3)]
+    #[Assert\NotNull]
+    #[Assert\Positive(message:"O campo deve conter valores positivo")]
     private ?string $peso = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\NotNull]
     private ?\DateTimeInterface $dtNasc = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Length(
+        min: 5,
+        max: 250,
+        minMessage: 'A Descrição deve conter no minimo {{ limit }} caracteres',
+        maxMessage: 'A Descrição deve conter no maximo {{ limit }} caracteres',
+    )]
+    private ?string $descricao = null;
 
     #[ORM\OneToMany(mappedBy: 'animal', targetEntity: ConsumoRacao::class)]
     private Collection $consumoRacaos;
@@ -28,8 +41,7 @@ class Animal
     #[ORM\OneToMany(mappedBy: 'animal', targetEntity: ProducaoLeite::class)]
     private Collection $producaoLeites;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $descricao = null;
+    
 
     public function __construct()
     {

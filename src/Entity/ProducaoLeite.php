@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ProducaoLeiteRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProducaoLeiteRepository::class)]
 class ProducaoLeite
@@ -15,6 +16,8 @@ class ProducaoLeite
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Assert\Positive(message:"O campo deve conter valores positivo")]
+    #[Assert\NotNull]
     private ?float $qntdLeite = null;
 
     #[ORM\ManyToOne(inversedBy: 'producaoLeites')]
@@ -22,9 +25,11 @@ class ProducaoLeite
     private ?Animal $animal = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\NotNull]
     private ?\DateTimeInterface $dtInicial = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\NotNull]
     private ?\DateTimeInterface $dtFinal = null;
 
     public function getId(): ?int
