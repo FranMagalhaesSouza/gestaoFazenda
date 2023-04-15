@@ -35,7 +35,7 @@ class AnimalController extends AbstractController
             //Salvar o novo Animal no bd
             $em->persist($animal); //salvar na memoria
             $em->flush();
-            $msg = "Animal cadatrado com sucesso!";
+            $msg = "Animal cadastrado com sucesso!";
         }
 
         $data['titulo'] = 'Cadastrar novo animal';

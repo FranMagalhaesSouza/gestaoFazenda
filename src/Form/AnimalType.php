@@ -3,9 +3,10 @@
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class AnimalType extends AbstractType {
@@ -13,13 +14,11 @@ class AnimalType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('qntdLeite', IntegerType::class, 
-                ['label' => 'Quantidade de leite produzido semanalmente:'])
 
-            ->add('qntdRacao', IntegerType::class, 
-                ['label' => 'Quantidade de ração consumida semanalmente:'])
-                
-            ->add('peso', IntegerType::class, 
+            ->add('descricao', TextType::class, 
+                ['label' => 'Informação do animal:'])
+
+            ->add('peso', NumberType::class, 
                 ['label' => 'Peso do animal:']) 
                 
             ->add('dtNasc', DateType::class, 

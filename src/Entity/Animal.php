@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AnimalRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -14,45 +16,30 @@ class Animal
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 5, scale: 2)]
-    private ?string $qntdLeite = null;
-
-    #[ORM\Column(type: Types::DECIMAL, precision: 5, scale: 2)]
-    private ?string $qntdRacao = null;
-
     #[ORM\Column(type: Types::DECIMAL, precision: 5, scale: 3)]
     private ?string $peso = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dtNasc = null;
 
+    #[ORM\OneToMany(mappedBy: 'animal', targetEntity: ConsumoRacao::class)]
+    private Collection $consumoRacaos;
+
+    #[ORM\OneToMany(mappedBy: 'animal', targetEntity: ProducaoLeite::class)]
+    private Collection $producaoLeites;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $descricao = null;
+
+    public function __construct()
+    {
+        $this->consumoRacaos = new ArrayCollection();
+        $this->producaoLeites = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getQntdLeite(): ?string
-    {
-        return $this->qntdLeite;
-    }
-
-    public function setQntdLeite(string $qntdLeite): self
-    {
-        $this->qntdLeite = $qntdLeite;
-
-        return $this;
-    }
-
-    public function getQntdRacao(): ?string
-    {
-        return $this->qntdRacao;
-    }
-
-    public function setQntdRacao(string $qntdRacao): self
-    {
-        $this->qntdRacao = $qntdRacao;
-
-        return $this;
     }
 
     public function getPeso(): ?string
@@ -75,6 +62,78 @@ class Animal
     public function setDtNasc(\DateTimeInterface $dtNasc): self
     {
         $this->dtNasc = $dtNasc;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ConsumoRacao>
+     */
+    public function getConsumoRacaos(): Collection
+    {
+        return $this->consumoRacaos;
+    }
+
+    public function addConsumoRacao(ConsumoRacao $consumoRacao): self
+    {
+        if (!$this->consumoRacaos->contains($consumoRacao)) {
+            $this->consumoRacaos->add($consumoRacao);
+            $consumoRacao->setAnimal($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConsumoRacao(ConsumoRacao $consumoRacao): self
+    {
+        if ($this->consumoRacaos->removeElement($consumoRacao)) {
+            // set the owning side to null (unless already changed)
+            if ($consumoRacao->getAnimal() === $this) {
+                $consumoRacao->setAnimal(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProducaoLeite>
+     */
+    public function getProducaoLeites(): Collection
+    {
+        return $this->producaoLeites;
+    }
+
+    public function addProducaoLeite(ProducaoLeite $producaoLeite): self
+    {
+        if (!$this->producaoLeites->contains($producaoLeite)) {
+            $this->producaoLeites->add($producaoLeite);
+            $producaoLeite->setAnimal($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProducaoLeite(ProducaoLeite $producaoLeite): self
+    {
+        if ($this->producaoLeites->removeElement($producaoLeite)) {
+            // set the owning side to null (unless already changed)
+            if ($producaoLeite->getAnimal() === $this) {
+                $producaoLeite->setAnimal(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getDescricao(): ?string
+    {
+        return $this->descricao;
+    }
+
+    public function setDescricao(?string $descricao): self
+    {
+        $this->descricao = $descricao;
 
         return $this;
     }

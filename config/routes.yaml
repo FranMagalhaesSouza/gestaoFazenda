@@ -11,3 +11,19 @@ home:
 animal_cadastrar:
     path: /animal/cadastrar
     controller: App\Controller\AnimalController::adicionar
+
+consumo_racao:
+    path: /consumo
+    controller: App\Controller\ConsumoRacaoController::index
+
+consumo_racao_cadastrar:
+    path: /consumo/cadastrar
+    controller: App\Controller\ConsumoRacaoController::adicionar
+
+producao_leite:
+    path: /producao
+    controller: App\Controller\ProducaoLeiteController::index
+
+producao_leite_cadastrar:
+    path: /producao/cadastrar
+    controller: App\Controller\ProducaoLeiteController::adicionar
