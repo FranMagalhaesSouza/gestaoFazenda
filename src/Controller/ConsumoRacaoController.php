@@ -20,6 +20,9 @@ class ConsumoRacaoController extends AbstractController
 
     public function index(ConsumoRacaoRepository $consumoRacaoRepository) : Response
     {
+
+        //restringir a pagina apenas aos ROLE_USER
+        $this->denyAccessunlessGranted('ROLE_USER');
         //buscar no bd todos os animais cadastrados
         $data['consumos'] = $consumoRacaoRepository->findAll();
         $data['titulo'] = 'Gerenciar Consumo de Ração';
@@ -29,6 +32,9 @@ class ConsumoRacaoController extends AbstractController
 
     public function adicionar(Request $request, EntityManagerInterface $em) : Response
     {
+
+        //restringir a pagina apenas aos ROLE_USER
+        $this->denyAccessunlessGranted('ROLE_USER');
         $msg = '';
         $consumoRacao = new ConsumoRacao();
         $form = $this->createForm(ConsumoRacaoType::class, $consumoRacao);
@@ -50,6 +56,9 @@ class ConsumoRacaoController extends AbstractController
 
     public function editar($id, Request $request, EntityManagerInterface $em, ConsumoRacaoRepository $consumoRacaoRepository) : Response
     {
+
+        //restringir a pagina apenas aos ROLE_USER
+        $this->denyAccessunlessGranted('ROLE_USER');
         $msg = '';
         $consumoRacao = $consumoRacaoRepository->find($id);
         $form = $this->createForm(ConsumoRacaoType::class, $consumoRacao);
@@ -70,6 +79,9 @@ class ConsumoRacaoController extends AbstractController
 
     public function excluir($id, EntityManagerInterface $em, ConsumoRacaoRepository $consumoRacaoRepository) : Response
     {
+
+        //restringir a pagina apenas aos ROLE_USER
+        $this->denyAccessunlessGranted('ROLE_USER');
         $consumoRacao = $consumoRacaoRepository->find($id);
         $em->remove($consumoRacao);
         $em->flush();

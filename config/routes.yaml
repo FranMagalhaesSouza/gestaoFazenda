@@ -1,5 +1,17 @@
 
 
+registrar:
+    path: /registrar
+    controller: App\Controller\RegistrationController::register
+
+login:
+    path: /login
+    controller: App\Controller\LoginController::index
+
+app_logout:
+    path: /logout
+    methods: GET   
+
 animal_index:
     path: /animal
     controller: App\Controller\AnimalController::index
@@ -52,5 +64,7 @@ producao_leite_editar:
 producao_leite_excluir:
     path: /producao/excluir/{id}
     controller: App\Controller\ProducaoLeiteController::excluir
+
+
 
 

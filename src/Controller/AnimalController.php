@@ -16,6 +16,8 @@ class AnimalController extends AbstractController
 
     public function index(AnimalRepository $animalRepository) : Response
     {
+        //restringir a pagina apenas aos ROLE_USER
+        $this->denyAccessunlessGranted('ROLE_USER');
         //buscar no bd todos os animais cadastrados
         $data['animais'] = $animalRepository->findAll();
         $data['titulo'] = 'Gerenciar Animais';
@@ -25,6 +27,8 @@ class AnimalController extends AbstractController
 
     public function adicionar(Request $request, EntityManagerInterface $em) : Response
     {
+         //restringir a pagina apenas aos ROLE_USER
+         $this->denyAccessunlessGranted('ROLE_USER');
         $msg = '';
         $animal = new Animal();
         $form = $this->createForm(AnimalType::class, $animal);
@@ -46,6 +50,9 @@ class AnimalController extends AbstractController
 
     public function editar($id, Request $request, EntityManagerInterface $em, AnimalRepository $animalRepository) : Response
     {
+        
+        //restringir a pagina apenas aos ROLE_USER
+        $this->denyAccessunlessGranted('ROLE_USER');
         $msg = '';
         $animal = $animalRepository->find($id); //retorna animalpelo $id
         $form = $this->createForm(AnimalType::class, $animal);
@@ -66,6 +73,9 @@ class AnimalController extends AbstractController
 
         public function excluir($id, EntityManagerInterface $em, AnimalRepository $animalRepository) : Response
         {
+
+             //restringir a pagina apenas aos ROLE_USER
+            $this->denyAccessunlessGranted('ROLE_USER');
             $animal = $animalRepository->find($id);
             $em->remove($animal); //excluir animal do bd
             $em->flush(); //excluir o animal do bd

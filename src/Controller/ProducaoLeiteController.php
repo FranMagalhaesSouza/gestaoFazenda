@@ -23,6 +23,9 @@ class ProducaoLeiteController extends AbstractController
 
     public function index(ProducaoLeiteRepository $producaoLeiteRepository) : Response
     {
+
+        //restringir a pagina apenas aos ROLE_USER
+        $this->denyAccessunlessGranted('ROLE_USER');
         //buscar no bd todos os animais cadastrados
         $data['producoes'] = $producaoLeiteRepository->findAll();
         $data['titulo'] = 'Gerenciar Produção de Leite';
@@ -32,6 +35,9 @@ class ProducaoLeiteController extends AbstractController
 
     public function adicionar(Request $request, EntityManagerInterface $em) : Response
     {
+
+        //restringir a pagina apenas aos ROLE_USER
+        $this->denyAccessunlessGranted('ROLE_USER');
         $msg = '';
         $producaoLeite = new ProducaoLeite();
         $form = $this->createForm(ProducaoLeiteType::class, $producaoLeite);
@@ -53,6 +59,9 @@ class ProducaoLeiteController extends AbstractController
 
     public function editar($id, Request $request, EntityManagerInterface $em, ProducaoLeiteRepository $producaoLeiteRepository) : Response
     {
+
+        //restringir a pagina apenas aos ROLE_USER
+        $this->denyAccessunlessGranted('ROLE_USER');
         $msg = '';
         $producaoLeite = $producaoLeiteRepository->find($id);
         $form = $this->createForm(ProducaoLeiteType::class, $producaoLeite);
@@ -73,6 +82,9 @@ class ProducaoLeiteController extends AbstractController
 
     public function excluir($id, EntityManagerInterface $em, ProducaoLeiteRepository $producaoLeiteRepository) : Response
     {
+
+        //restringir a pagina apenas aos ROLE_USER
+        $this->denyAccessunlessGranted('ROLE_USER');
         $producaoLeite = $producaoLeiteRepository->find($id);
         $em->remove($producaoLeite);
         $em->flush();
