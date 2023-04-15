@@ -19,8 +19,9 @@
                     <td>{{ animal.descricao }}</td>
                     <td>{{ animal.peso }}</td>
                     <td>
-                        <a href="#" class="btn btn-primary">Editar</a>
-                        <a href="#" class="btn btn-primary">Excluir</a>
+                        <a href="{{ path('animal_editar', {id: animal.id}) }}" class="btn btn-primary">Editar</a>
+                        <a href="{{ path('animal_excluir', {id: animal.id}) }}" class="btn btn-danger">Excluir</a>
+                        <a href="#" class="btn btn-danger">Abater animal</a>
                     </td>
                 </tr>
             {% endfor %}

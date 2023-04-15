@@ -47,4 +47,34 @@ class ConsumoRacaoController extends AbstractController
 
         return $this->renderform('ConsumoRacao/form.html.twig', $data);
     }
+
+    public function editar($id, Request $request, EntityManagerInterface $em, ConsumoRacaoRepository $consumoRacaoRepository) : Response
+    {
+        $msg = '';
+        $consumoRacao = $consumoRacaoRepository->find($id);
+        $form = $this->createForm(ConsumoRacaoType::class, $consumoRacao);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            //Atualizar o novo Animal no bd
+            $em->flush();
+            $msg = "atualizado com sucesso!";
+        }
+
+        $data['titulo'] = 'Editar Consumo de Ração';
+        $data['form'] = $form;
+        $data['msg'] = $msg;
+
+        return $this->renderform('ConsumoRacao/form.html.twig', $data);
+    }
+
+    public function excluir($id, EntityManagerInterface $em, ConsumoRacaoRepository $consumoRacaoRepository) : Response
+    {
+        $consumoRacao = $consumoRacaoRepository->find($id);
+        $em->remove($consumoRacao);
+        $em->flush();
+
+        //redireciona para consumoRacao index
+        return $this->redirectToRoute('consumo_racao_index');
+    }
 }

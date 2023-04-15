@@ -50,4 +50,34 @@ class ProducaoLeiteController extends AbstractController
 
         return $this->renderform('ProducaoLeite/form.html.twig', $data);
     }
+
+    public function editar($id, Request $request, EntityManagerInterface $em, ProducaoLeiteRepository $producaoLeiteRepository) : Response
+    {
+        $msg = '';
+        $producaoLeite = $producaoLeiteRepository->find($id);
+        $form = $this->createForm(ProducaoLeiteType::class, $producaoLeite);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            //Atualizar o novo Animal no bd
+            $em->flush();
+            $msg = "atualizado com sucesso!";
+        }
+
+        $data['titulo'] = 'Editar Produção de Leite';
+        $data['form'] = $form;
+        $data['msg'] = $msg;
+
+        return $this->renderform('ProducaoLeite/form.html.twig', $data);
+    }
+
+    public function excluir($id, EntityManagerInterface $em, ProducaoLeiteRepository $producaoLeiteRepository) : Response
+    {
+        $producaoLeite = $producaoLeiteRepository->find($id);
+        $em->remove($producaoLeite);
+        $em->flush();
+
+        //redireciona para producaoLeite index
+        return $this->redirectToRoute('producao_leite_index');
+    }
 }

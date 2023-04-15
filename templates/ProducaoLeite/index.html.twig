@@ -19,8 +19,8 @@
                     <td>{{ producao.animal.descricao }}</td>
                     <td>{{ producao.qntdLeite }}</td>
                     <td>
-                        <a href="#" class="btn btn-primary">Editar</a>
-                        <a href="#" class="btn btn-primary">Excluir</a>
+                        <a href="{{ path('producao_leite_editar', {id: producao.id}) }}" class="btn btn-primary">Editar</a>
+                        <a href="{{ path('producao_leite_excluir', {id: producao.id}) }}" class="btn btn-primary">Excluir</a>
                     </td>
                 </tr>
             {% endfor %}

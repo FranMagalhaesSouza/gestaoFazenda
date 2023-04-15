@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Animal;
 use App\Form\AnimalType;
 use App\Repository\AnimalRepository;
-use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,4 +43,34 @@ class AnimalController extends AbstractController
 
         return $this->renderform('animal/form.html.twig', $data);
     }
-}
+
+    public function editar($id, Request $request, EntityManagerInterface $em, AnimalRepository $animalRepository) : Response
+    {
+        $msg = '';
+        $animal = $animalRepository->find($id); //retorna animalpelo $id
+        $form = $this->createForm(AnimalType::class, $animal);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $em->flush(); //fazer update do animal no bd
+            $msg ='Animal atualizado com sucesso';
+        }
+
+        $data['titulo'] = 'Editar animal';
+        $data['form'] = $form;
+        $data['msg'] = $msg;
+
+        return $this->renderform('animal/form.html.twig', $data);
+    }
+
+        public function excluir($id, EntityManagerInterface $em, AnimalRepository $animalRepository) : Response
+        {
+            $animal = $animalRepository->find($id);
+            $em->remove($animal); //excluir animal do bd
+            $em->flush(); //excluir o animal do bd
+
+            return $this->redirectToRoute('animal_index');
+        }
+    
+    }

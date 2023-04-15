@@ -19,8 +19,8 @@
                     <td>{{ consumo.animal.descricao }}</td>
                     <td>{{ consumo.qtdRacao }}</td>
                     <td>
-                        <a href="#" class="btn btn-primary">Editar</a>
-                        <a href="#" class="btn btn-primary">Excluir</a>
+                        <a href="{{ path('consumo_racao_editar', {id: consumo.id}) }}" class="btn btn-primary">Editar</a>
+                        <a href="{{ path('consumo_racao_excluir', {id: consumo.id}) }}" class="btn btn-primary">Excluir</a>
                     </td>
                 </tr>
             {% endfor %}
