@@ -24,7 +24,7 @@ class Animal
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\NotNull]
-    #[Assert\LessThanOrEqual('today',message:"A data de nasciento não pode ser futura")]
+    #[Assert\LessThanOrEqual('today',message:"A data de nascimento não pode ser futura")]
     private ?\DateTimeInterface $dtNasc = null;
 
     #[ORM\Column(length: 255, nullable: true)]
