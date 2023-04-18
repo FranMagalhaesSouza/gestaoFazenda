@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% block title %} {{ titulo }} {% endblock %}
+{% block body %} 
+    
+
+    <div class="container">
+   
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+              <div class="card h-100" style="margin-top: 50px">
+                {#<img src="{{'@images/prod_leite.png'}}" class="card-img-top" alt="..."/>#}
+                <div class="card-body">
+                  <h5 class="card-title">Produção de Leite</h5>
+                  <p class="card-text"> A Produção de Leite total da semana: <b>{{ qtdleite[0].qtdleite }}</b> </p>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card h-100" style="margin-top: 50px">
+                {#<img src="/assets/images/consumo_racao.jpg" class="card-img-top" alt="...">#}
+                <div class="card-body">
+                  <h5 class="card-title">Consumo de Ração</h5>
+                  <p class="card-text"> O Consumo de ração total da semana: <b>{{ qtdracao[0].qtdracao }}</b> </p>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card h-100" style="margin-top: 50px">
+                {#<img src="/assets/images/boi_novo.jpg" class="card-img-top" alt="...">#}
+                <div class="card-body">
+                  <h5 class="card-title">Boi</h5>
+                  <p class="card-text"> A quantidade de animais com menos de um ano e que consome mais de 500kg de ração por semana: <b>{{ boinovo[0].qtdanimal }}</b></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+   
+
+    </div>
+
+{% endblock %}

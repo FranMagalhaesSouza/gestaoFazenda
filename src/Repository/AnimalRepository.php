@@ -39,6 +39,70 @@ class AnimalRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAnimalByLikeDescricao($descricao)
+    {
+        return $this->createQueryBuilder('a')
+                    ->where('a.descricao LIKE :descricao')
+                    ->setParameter('descricao', "%$descricao%")
+                    ->getQuery()
+                    ->getResult();
+    }
+
+    public function findAnimalForAbate()
+    {
+        
+        return $this->createQueryBuilder('a')
+                    ->where("TIMESTAMPDIFF(YEAR, a.dtNasc, CURRENT_DATE())>5 and a.status=0")
+                    ->orWhere("a.qtdleite < 40 and a.status=0")
+                    ->orWhere("(a.qtdleite < 70 and ((a.qtdracao / 7) > 50))and a.status=0 ")
+                    ->orWhere("a.peso > (18*15) and a.status=0")
+                    ->addOrderBy(" a.descricao,TIMESTAMPDIFF(YEAR, a.dtNasc, CURRENT_DATE()) ")
+                    ->getQuery()
+                    ->getResult();
+       
+    }
+
+        public function findByStatus($status) 
+        {
+            return $this->createQueryBuilder('a')
+                    ->where('a.status = :status')
+                    ->setParameter('status', "$status")
+                    ->getQuery()
+                    ->getResult(); 
+        }
+
+        public function findBySunLeite()
+        {
+            return $this->createQueryBuilder('a')
+                    ->andwhere('a.status = 0')
+                    ->select('SUM(a.qtdleite)as qtdleite')
+                    ->getQuery()
+                    ->getResult();
+        }
+
+        public function findBySUMRacao()
+        {
+            return $this->createQueryBuilder('a')
+                    ->andwhere('a.status = 0')
+                    ->select('SUM(a.qtdracao)as qtdracao')
+                    ->getQuery()
+                    ->getResult();
+        }
+
+        public function findByIdade()
+        {
+            return $this->createQueryBuilder('a')
+                    ->where("TIMESTAMPDIFF(YEAR, a.dtNasc, CURRENT_DATE())<=1")
+                    ->andwhere('a.status = 0')
+                    ->andWhere("a.qtdracao > 500 ")
+                    ->select('count(a.qtdracao)as qtdanimal')
+                    ->getQuery()
+                    ->getResult();
+        }
+
+
+
+
 //    /**
 //     * @return Animal[] Returns an array of Animal objects
 //     */

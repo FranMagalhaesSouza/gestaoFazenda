@@ -32,38 +32,19 @@ animal_excluir:
     path: /animal/excluir/{id}
     controller: App\Controller\AnimalController::excluir
 
+animal_abate:
+    path: /animal/relatorioAbate
+    controller: App\Controller\AnimalController::relatorioAbate
 
-consumo_racao_index:
-    path: /consumo
-    controller: App\Controller\ConsumoRacaoController::index
+animal_abater:
+    path: /animal/abateranimal/{id}
+    controller: App\Controller\AnimalController::abateranimal
 
-consumo_racao_cadastrar:
-    path: /consumo/cadastrar
-    controller: App\Controller\ConsumoRacaoController::adicionar
+animais_abatidos:
+    path: /animal/relatorioAnimaisAbatidos
+    controller: App\Controller\AnimalController::relatorioAnimaisAbatidos
 
-consumo_racao_editar:
-    path: /consumo/editar/{id}
-    controller: App\Controller\ConsumoRacaoController::editar
 
-consumo_racao_excluir:
-    path: /consumo/excluir/{id}
-    controller: App\Controller\ConsumoRacaoController::excluir
-
-producao_leite_index:
-    path: /producao
-    controller: App\Controller\ProducaoLeiteController::index
-
-producao_leite_cadastrar:
-    path: /producao/cadastrar
-    controller: App\Controller\ProducaoLeiteController::adicionar
-
-producao_leite_editar:
-    path: /producao/editar/{id}
-    controller: App\Controller\ProducaoLeiteController::editar
-
-producao_leite_excluir:
-    path: /producao/excluir/{id}
-    controller: App\Controller\ProducaoLeiteController::excluir
 
 
 

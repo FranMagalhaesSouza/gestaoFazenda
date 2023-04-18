@@ -35,20 +35,20 @@ class Animal
     )]
     private ?string $descricao = null;
 
-    #[ORM\OneToMany(mappedBy: 'animal', targetEntity: ConsumoRacao::class)]
-    private Collection $consumoRacaos;
+    #[ORM\Column]
+    #[Assert\NotNull]
+    private ?float $qtdleite = null;
 
-    #[ORM\OneToMany(mappedBy: 'animal', targetEntity: ProducaoLeite::class)]
-    private Collection $producaoLeites;
+    #[ORM\Column]
+    #[Assert\NotNull]
+    private ?float $qtdracao = null;
 
-    
+    #[ORM\Column]
+    private ?bool $status = null;
 
-    public function __construct()
-    {
-        $this->consumoRacaos = new ArrayCollection();
-        $this->producaoLeites = new ArrayCollection();
-    }
-
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dtabate = null;
+   
     public function getId(): ?int
     {
         return $this->id;
@@ -76,67 +76,7 @@ class Animal
         $this->dtNasc = $dtNasc;
 
         return $this;
-    }
-
-    /**
-     * @return Collection<int, ConsumoRacao>
-     */
-    public function getConsumoRacaos(): Collection
-    {
-        return $this->consumoRacaos;
-    }
-
-    public function addConsumoRacao(ConsumoRacao $consumoRacao): self
-    {
-        if (!$this->consumoRacaos->contains($consumoRacao)) {
-            $this->consumoRacaos->add($consumoRacao);
-            $consumoRacao->setAnimal($this);
-        }
-
-        return $this;
-    }
-
-    public function removeConsumoRacao(ConsumoRacao $consumoRacao): self
-    {
-        if ($this->consumoRacaos->removeElement($consumoRacao)) {
-            // set the owning side to null (unless already changed)
-            if ($consumoRacao->getAnimal() === $this) {
-                $consumoRacao->setAnimal(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, ProducaoLeite>
-     */
-    public function getProducaoLeites(): Collection
-    {
-        return $this->producaoLeites;
-    }
-
-    public function addProducaoLeite(ProducaoLeite $producaoLeite): self
-    {
-        if (!$this->producaoLeites->contains($producaoLeite)) {
-            $this->producaoLeites->add($producaoLeite);
-            $producaoLeite->setAnimal($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProducaoLeite(ProducaoLeite $producaoLeite): self
-    {
-        if ($this->producaoLeites->removeElement($producaoLeite)) {
-            // set the owning side to null (unless already changed)
-            if ($producaoLeite->getAnimal() === $this) {
-                $producaoLeite->setAnimal(null);
-            }
-        }
-
-        return $this;
-    }
+    } 
 
     public function getDescricao(): ?string
     {
@@ -146,6 +86,54 @@ class Animal
     public function setDescricao(?string $descricao): self
     {
         $this->descricao = $descricao;
+
+        return $this;
+    }
+
+    public function getQtdleite(): ?float
+    {
+        return $this->qtdleite;
+    }
+
+    public function setQtdleite(float $qtdleite): self
+    {
+        $this->qtdleite = $qtdleite;
+
+        return $this;
+    }
+
+    public function getQtdracao(): ?float
+    {
+        return $this->qtdracao;
+    }
+
+    public function setQtdracao(float $qtdracao): self
+    {
+        $this->qtdracao = $qtdracao;
+
+        return $this;
+    }
+
+    public function isStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getDtabate(): ?\DateTimeInterface
+    {
+        return $this->dtabate;
+    }
+
+    public function setDtabate(?\DateTimeInterface $dtabate): self
+    {
+        $this->dtabate = $dtabate;
 
         return $this;
     }

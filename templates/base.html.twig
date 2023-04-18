@@ -21,16 +21,16 @@
                 <a class="navbar-brand" href="{{ path('home') }}">Gestão Fazenda</a>
                 {% if is_granted('ROLE_USER') %}
                 <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item">
+                            <a href="{{ path('home') }}" class="nav-link">Home</a>
+                        </li>  
                         <li class="nav-item">
                             <a href="{{ path('animal_index') }}" class="nav-link">Animais</a>
-                        </li>
+                        </li>  
                         <li class="nav-item">
-                            <a href="{{ path('consumo_racao_index') }}" class="nav-link">Consumo de Ração</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ path('producao_leite_index') }}" class="nav-link">Produção de Leite</a>
-                        </li>
+                            <a href="{{ path('animal_abate') }}" class="nav-link">Abater animal </a>
+                        </li>                      
                         <li class="nav-item">
                             <a href="{{ path('app_logout') }}" class="nav-link"> Sair </a>
                         </li>
@@ -41,12 +41,13 @@
 
         </nav>       
         <div class="container">
-            {% if is_granted('ROLE_USER') %}
+            {#{% if is_granted('ROLE_USER') %}
                 <span> Usuário: {{ app.user.nome }}</span>
-            {% endif %}
+            {% endif %}#}
         {% block body %}
         
         {% endblock %}
     </div>
     </body>
+   
 </html>

@@ -17,10 +17,12 @@ class AnimalType extends AbstractType {
 
             ->add('descricao', TextType::class, 
                 ['label' => 'Informação do animal:'])
-
             ->add('peso', NumberType::class, 
                 ['label' => 'Peso do animal:']) 
-                
+            ->add('qtdleite', NumberType::class, 
+                ['label' => 'Produção de leite por semana:']) 
+            ->add('qtdracao', NumberType::class, 
+                ['label' => 'Consumo de ração por semana:'])                 
             ->add('dtNasc', DateType::class, 
                 ['label' => 'Data de nascimento do animal:'])
 
