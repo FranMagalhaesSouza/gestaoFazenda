@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Animal;
 use App\Form\AnimalType;
 use App\Repository\AnimalRepository;
+use App\Service\MessageGenerator;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -50,7 +51,7 @@ class AnimalController extends AbstractController
 
     #[isGranted('ROLE_USER')]
     #[Route('/animal/cadastrar', name: 'animal_cadastrar')]
-    public function adicionar(Request $request, EntityManagerInterface $em): Response
+    public function adicionar(Request $request, EntityManagerInterface $em, MessageGenerator $messageGenerator): Response
     {
         try {
             //restringir a pagina apenas aos ROLE_USER
@@ -65,11 +66,9 @@ class AnimalController extends AbstractController
                 //Salvar o novo Animal no bd
                 $em->persist($animal); //salvar na memoria
                 $em->flush();
-                $this->addFlash(
-                    'notice',
-                    'Animal cadastrado com sucesso!'
-                );
-
+                $message = $messageGenerator->getMessageCreateSuccess();
+                $this->addFlash('notice', $message);
+               
                 return $this->redirectToRoute('animal_index');
             }
 
@@ -89,7 +88,7 @@ class AnimalController extends AbstractController
 
     #[isGranted('ROLE_USER')]
     #[Route('/animal/editar/{id}', name: 'animal_editar')]
-    public function editar($id, Request $request, EntityManagerInterface $em, AnimalRepository $animalRepository): Response
+    public function editar($id, Request $request, EntityManagerInterface $em, AnimalRepository $animalRepository, MessageGenerator $messageGenerator): Response
     {
         try {
             //restringir a pagina apenas aos ROLE_USER
@@ -101,11 +100,8 @@ class AnimalController extends AbstractController
 
             if ($form->isSubmitted() && $form->isValid()) {
                 $em->flush(); //fazer update do animal no bd
-                $this->addFlash(
-                    'notice',
-                    'Animal atualizado com sucesso!'
-                );
-
+                $message = $messageGenerator->getMessageUpdateSuccess();
+                $this->addFlash('notice', $message);
                 return $this->redirectToRoute('animal_index');
             }
 
@@ -148,28 +144,24 @@ class AnimalController extends AbstractController
     }
 
     #[isGranted('ROLE_USER')]
-    #[Route('/animal/abateranimal/{id}', name: 'animal_abater')]
-    public function abateranimal($id, EntityManagerInterface $em, AnimalRepository $animalRepository): Response
+    #[Route('/animal/abaterAnimal/{id}', name: 'animal_abater')]
+    public function abaterAnimal($id, EntityManagerInterface $em, AnimalRepository $animalRepository, MessageGenerator $messageGenerator): Response
     {
         try {
             //restringir a pagina apenas aos ROLE_USER
             $this->denyAccessunlessGranted('ROLE_USER');
 
-            $error = 0;
             $animais = $animalRepository->findAnimalForAbate();
-            foreach ($animais as $animalAbate) {
+            foreach ($animais as $animalAbate) {                
                 if ($animalAbate->getId() == $id) {
                     $animal = $animalRepository->find($id);
                     $animal->setStatus(1);
                     $animal->setDtabate(new DateTime());
                     $em->flush(); //excluir o animal do bd
-                    $this->addFlash(
-                        'notice',
-                        'Animal abatido com sucesso!'
-                    );
+                    $message = $messageGenerator->getMessageAbaterSuccess();
+                    $this->addFlash('notice', $message);
                 } 
-            }
-           
+            }           
 
             return $this->redirectToRoute('animal_abate');
         } catch (Exception $e) {

@@ -61,7 +61,7 @@ class AnimalRepository extends ServiceEntityRepository
             ->orWhere("(a.qtdleite < 70 and ((a.qtdracao / 7) > 50))and a.status=0 ")
             ->orWhere("a.peso > (18*15) and a.status=0")
             ->addOrderBy(" a.descricao,TIMESTAMPDIFF(YEAR, a.dtNasc, CURRENT_DATE()) ")
-            ->getQuery();
+            ->getQuery()->getResult();
     }
 
     public function findByStatus($status)
