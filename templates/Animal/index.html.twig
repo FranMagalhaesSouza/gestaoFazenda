@@ -2,28 +2,15 @@
 {% block title %} {{ titulo }} {% endblock %}
 {% block body %} 
     <h1>{{ titulo }}</h1>
-    {% for message in app.flashes('notice') %}
-        <div class="alert alert-success ">
-            {{message}}
-        </div>
-    {% endfor %}
-    {% for message in app.flashes('error') %}
-        <div class="alert alert-danger ">
-            {{message}}
-        </div>
-    {% endfor %}
+    
   <form method="get">
         <label> Pesquisar pela descrição </label>
         <input type="text" name="descricao" class="form-control" value="{{descricao}}"/>
         <button type="submit" class="btn btn-primary" style="margin-top: 10px"> Pesquisar </button>
         <a href="{{ path('animal_cadastrar') }}" class="btn btn-primary" style="margin-top: 10px">Cadastrar Animal</a>
   </form>
-   {# total items count #}
-<div class="count">
-    {{ pagination.getTotalItemCount }}
-</div>
 <table class="table">
-    <thead style="border-top: 2px">
+    
         <tr>
             {# sorting of properties based on query components #}
             <th>{{ knp_pagination_sortable(pagination, 'Id', 'a.id') }}</th>
@@ -45,10 +32,10 @@
             <th{% if pagination.isSorted(['a.status']) %} class="sorted"{% endif %}>
                 {{ knp_pagination_sortable(pagination, 'Status', ['a.status']) }}
             </th>            
-            <th>Ações</th>
+            <th class="sorted">Ações</th>
         </tr>
-    </thead>
-    <tbody>
+    
+    
         {# table body #}
         {% for animal in pagination %}
                 {% if animal.status %}   
@@ -60,11 +47,6 @@
                         <td style="color: red;">{{ animal.peso }}</td>
                         <td style="color: red;">{{ animal.dtNasc | date('d-m-y') }}</td>
                         <td style="color: red;">Abatido</td>
-                        <td>
-                            <a href="{{ path('animal_editar', {id: animal.id}) }}" class="btn btn-primary">Editar</a>
-                            <a href="{{ path('animal_excluir', {id: animal.id}) }}" class="btn btn-danger">Excluir</a>                        
-                        </td>
-                    </tr>
                 {% else %}
                 <tr>
                     <td>{{ animal.id }}</td>
@@ -74,14 +56,15 @@
                     <td>{{ animal.peso }}</td>
                     <td>{{ animal.dtNasc | date('d-m-y') }}</td>    
                     <td >Vivo</td>              
+                
+               {% endif %}
                     <td>
                         <a href="{{ path('animal_editar', {id: animal.id}) }}" class="btn btn-primary">Editar</a>
                         <a href="{{ path('animal_excluir', {id: animal.id}) }}" class="btn btn-danger">Excluir</a>                        
                     </td>
                 </tr>
-               {% endif %}
             {% endfor %}
-        </tbody>
+       
     </table>
 {# display navigation #}
 <div class="navigation">

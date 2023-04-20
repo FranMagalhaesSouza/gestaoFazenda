@@ -1,48 +1,7 @@
 
-
-registrar:
-    path: /registrar
-    controller: App\Controller\RegistrationController::register
-
-login:
-    path: /login
-    controller: App\Controller\LoginController::index
-
 app_logout:
     path: /logout
     methods: GET   
-
-animal_index:
-    path: /animal
-    controller: App\Controller\AnimalController::index
-
-home:
-    path: /
-    controller: App\Controller\IndexController::index
-
-animal_cadastrar:
-    path: /animal/cadastrar
-    controller: App\Controller\AnimalController::adicionar
-
-animal_editar:
-    path: /animal/editar/{id}
-    controller: App\Controller\AnimalController::editar
-
-animal_excluir:
-    path: /animal/excluir/{id}
-    controller: App\Controller\AnimalController::excluir
-
-animal_abate:
-    path: /animal/relatorioAbate
-    controller: App\Controller\AnimalController::relatorioAbate
-
-animal_abater:
-    path: /animal/abateranimal/{id}
-    controller: App\Controller\AnimalController::abateranimal
-
-animais_abatidos:
-    path: /animal/relatorioAnimaisAbatidos
-    controller: App\Controller\AnimalController::relatorioAnimaisAbatidos
 
 
 

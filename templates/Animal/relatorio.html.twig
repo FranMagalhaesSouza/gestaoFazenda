@@ -2,22 +2,8 @@
 {% block title %} {{ titulo }} {% endblock %}
 {% block body %} 
     <h1>{{ titulo }}</h1>
-    {% for message in app.flashes('notice') %}
-        <div class="alert alert-success ">
-            {{message}}
-        </div>
-    {% endfor %}
-    {% for message in app.flashes('error') %}
-        <div class="alert alert-danger ">
-            {{message}}
-        </div>
-    {% endfor %}
-
     <a href="{{ path('animais_abatidos') }}" class="btn btn-primary" style="margin-top: 10px"> Relatório de animais abatidos </a>
-  {# total items count #}
-<div class="count">
-    {{ pagination.getTotalItemCount }}
-</div>
+ 
 <table class="table">
     <thead style="border-top: 2px">
         <tr>

@@ -10,6 +10,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class LoginController extends AbstractController
 {
     
+    #[Route('/login', name: 'login')]
     public function index(AuthenticationUtils $authUtils): Response
     {
         //pegar o erro do login caso exista

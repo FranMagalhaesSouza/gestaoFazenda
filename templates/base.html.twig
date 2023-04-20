@@ -41,9 +41,16 @@
 
         </nav>       
         <div class="container">
-            {#{% if is_granted('ROLE_USER') %}
-                <span> Usuário: {{ app.user.nome }}</span>
-            {% endif %}#}
+            {% for message in app.flashes('notice') %}
+                <div class="alert alert-success ">
+                    {{message}}
+                </div>
+            {% endfor %}
+            {% for message in app.flashes('error') %}
+                <div class="alert alert-danger ">
+                    {{message}}
+                </div>
+            {% endfor %}
         {% block body %}
         
         {% endblock %}
