@@ -13,10 +13,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\Date;
-
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 class AnimalController extends AbstractController
 {
+
+    #[isGranted('ROLE_USER')]
     #[Route('/animal', name: 'animal_index')]
     public function index(Request $request, AnimalRepository $animalRepository, PaginatorInterface $paginator): Response
     {
@@ -26,7 +27,7 @@ class AnimalController extends AbstractController
             $this->denyAccessunlessGranted('ROLE_USER');
             //buscar no bd todos os animais cadastrados
             $query = is_null($descricaoanimal) #condição ternaria#
-                ? $animalRepository->findAll()
+                ? $animalRepository->findAnimal()
                 : $animalRepository->findAnimalByLikeDescricao($descricaoanimal);
             $pagination = $paginator->paginate(
                 $query,
@@ -47,6 +48,7 @@ class AnimalController extends AbstractController
         }
     }
 
+    #[isGranted('ROLE_USER')]
     #[Route('/animal/cadastrar', name: 'animal_cadastrar')]
     public function adicionar(Request $request, EntityManagerInterface $em): Response
     {
@@ -85,6 +87,7 @@ class AnimalController extends AbstractController
         }
     }
 
+    #[isGranted('ROLE_USER')]
     #[Route('/animal/editar/{id}', name: 'animal_editar')]
     public function editar($id, Request $request, EntityManagerInterface $em, AnimalRepository $animalRepository): Response
     {
@@ -119,6 +122,7 @@ class AnimalController extends AbstractController
         }
     }
 
+    #[isGranted('ROLE_USER')]
     #[Route('/animal/excluir/{id}', name: 'animal_excluir')]
     public function excluir($id, EntityManagerInterface $em, AnimalRepository $animalRepository): Response
     {
@@ -143,6 +147,7 @@ class AnimalController extends AbstractController
         }
     }
 
+    #[isGranted('ROLE_USER')]
     #[Route('/animal/abateranimal/{id}', name: 'animal_abater')]
     public function abateranimal($id, EntityManagerInterface $em, AnimalRepository $animalRepository): Response
     {
@@ -176,6 +181,7 @@ class AnimalController extends AbstractController
         }
     }
 
+    #[isGranted('ROLE_USER')]
     #[Route('/animal/relatorioAbate', name: 'animal_abate')]
     public function relatorioAbate(Request $request, AnimalRepository $animalRepository, PaginatorInterface $paginator): Response
     {
@@ -201,6 +207,7 @@ class AnimalController extends AbstractController
         }
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/animal/relatorioAnimaisAbatidos', name: 'animais_abatidos')]
     public function relatorioAnimaisAbatidos(Request $request, AnimalRepository $animalRepository, PaginatorInterface $paginator): Response
     {

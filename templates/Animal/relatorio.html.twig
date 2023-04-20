@@ -1,27 +1,28 @@
 {% extends 'base.html.twig' %}
 {% block title %} {{ titulo }} {% endblock %}
-{% block body %} 
-    <h1>{{ titulo }}</h1>
-    <a href="{{ path('animais_abatidos') }}" class="btn btn-primary" style="margin-top: 10px"> Relatório de animais abatidos </a>
- 
+{% block body %}
+<h1>{{ titulo }}</h1>
+<a href="{{ path('animais_abatidos') }}" class="btn btn-primary" style="margin-top: 10px"> Relatório de animais abatidos
+</a>
+
 <table class="table">
     <thead style="border-top: 2px">
         <tr>
             {# sorting of properties based on query components #}
-            <th>{{ knp_pagination_sortable(pagination, 'Id', 'a.id') }}</th>
-            <th{% if pagination.isSorted('a.descricao') %} class="sorted"{% endif %}>
+            <th> {{ knp_pagination_sortable(pagination, 'Id', 'a.id') }}</th>
+            <th {% if pagination.isSorted('a.descricao') %} class="sorted" {% endif %}>
                 {{ knp_pagination_sortable(pagination, 'Descrição', 'a.descricao') }}
             </th>
-            <th{% if pagination.isSorted('a.peso') %} class="sorted"{% endif %}>
+            <th {% if pagination.isSorted('a.peso') %} class="sorted" {% endif %}>
                 {{ knp_pagination_sortable(pagination, 'Peso', 'a.peso') }}
             </th>
-            <th{% if pagination.isSorted('a.qtdleite') %} class="sorted"{% endif %}>
+            <th {% if pagination.isSorted('a.qtdleite') %} class="sorted" {% endif %}>
                 {{ knp_pagination_sortable(pagination, 'Qtd Leite', 'a.qtdleite') }}
             </th>
-            <th{% if pagination.isSorted('a.qtdracao') %} class="sorted"{% endif %}>
+            <th {% if pagination.isSorted('a.qtdracao') %} class="sorted" {% endif %}>
                 {{ knp_pagination_sortable(pagination, 'Qtd Ração', 'a.qtdracao') }}
             </th>
-            <th{% if pagination.isSorted(['a.dtNasc']) %} class="sorted"{% endif %}>
+            <th {% if pagination.isSorted(['a.dtNasc']) %} class="sorted" {% endif %}>
                 {{ knp_pagination_sortable(pagination, 'Dt Nasc', ['a.dtNasc']) }}
             </th>
             <th>Ações</th>
@@ -30,17 +31,17 @@
     <tbody>
         {# table body #}
         {% for animal in pagination %}
-            <tr {% if loop.index is odd %}class="color"{% endif %}>
-                <td>{{ animal.id }}</td>
-                <td>{{ animal.descricao }}</td>
-                <td>{{ animal.peso }}</td>
-                <td>{{ animal.qtdleite }}</td>
-                <td>{{ animal.qtdracao }}</td>
-                <td>{{ animal.dtNasc | date('d-m-y') }}</td>
-                <td>
-                    <a href="{{ path('animal_abater', {id: animal.id}) }}" class="btn btn-danger">Abater Animal</a>                        
-                </td>
-            </tr>
+        <tr {% if loop.index is odd %}class="color" {% endif %}>
+            <td>{{ animal.id }}</td>
+            <td>{{ animal.descricao }}</td>
+            <td>{{ animal.peso }}</td>
+            <td>{{ animal.qtdleite }}</td>
+            <td>{{ animal.qtdracao }}</td>
+            <td>{{ animal.dtNasc | date('d-m-y') }}</td>
+            <td>
+                <a href="{{ path('animal_abater', {id: animal.id}) }}" class="btn btn-danger">Abater Animal</a>
+            </td>
+        </tr>
         {% endfor %}
     </tbody>
 </table>

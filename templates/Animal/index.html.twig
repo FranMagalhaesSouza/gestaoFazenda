@@ -1,71 +1,68 @@
 {% extends 'base.html.twig' %}
 {% block title %} {{ titulo }} {% endblock %}
-{% block body %} 
-    <h1>{{ titulo }}</h1>
-    
-  <form method="get">
-        <label> Pesquisar pela descrição </label>
-        <input type="text" name="descricao" class="form-control" value="{{descricao}}"/>
-        <button type="submit" class="btn btn-primary" style="margin-top: 10px"> Pesquisar </button>
-        <a href="{{ path('animal_cadastrar') }}" class="btn btn-primary" style="margin-top: 10px">Cadastrar Animal</a>
-  </form>
+{% block body %}
+<h1>{{ titulo }}</h1>
+
+<form method="get">
+    <label> Pesquisar pela descrição </label>
+    <input type="text" name="descricao" class="form-control" value="{{descricao}}" />
+    <button type="submit" class="btn btn-primary" style="margin-top: 10px"> Pesquisar </button>
+    <a href="{{ path('animal_cadastrar') }}" class="btn btn-primary" style="margin-top: 10px">Cadastrar Animal</a>
+</form>
 <table class="table">
-    
-        <tr>
-            {# sorting of properties based on query components #}
-            <th>{{ knp_pagination_sortable(pagination, 'Id', 'a.id') }}</th>
-            <th{% if pagination.isSorted('a.descricao') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'Descrição', 'a.descricao') }}
-            </th>
-            <th{% if pagination.isSorted('a.peso') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'Peso', 'a.peso') }}
-            </th>
-            <th{% if pagination.isSorted('a.qtdleite') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'Qtd Leite', 'a.qtdleite') }}
-            </th>
-            <th{% if pagination.isSorted('a.qtdracao') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'Qtd Ração', 'a.qtdracao') }}
-            </th>
-            <th{% if pagination.isSorted(['a.dtNasc']) %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'Dt Nasc', ['a.dtNasc']) }}
-            </th>
-            <th{% if pagination.isSorted(['a.status']) %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'Status', ['a.status']) }}
-            </th>            
-            <th class="sorted">Ações</th>
-        </tr>
-    
-    
-        {# table body #}
-        {% for animal in pagination %}
-                {% if animal.status %}   
-                    <tr>
-                        <td style="color: red;">{{ animal.id }}</td>
-                        <td style="color: red;">{{ animal.descricao }}</td>
-                        <td style="color: red;">{{ animal.qtdleite }}</td>
-                        <td style="color: red;">{{ animal.qtdracao }}</td>
-                        <td style="color: red;">{{ animal.peso }}</td>
-                        <td style="color: red;">{{ animal.dtNasc | date('d-m-y') }}</td>
-                        <td style="color: red;">Abatido</td>
-                {% else %}
-                <tr>
-                    <td>{{ animal.id }}</td>
-                    <td>{{ animal.descricao }}</td>
-                    <td>{{ animal.qtdleite }}</td>
-                    <td>{{ animal.qtdracao }}</td>
-                    <td>{{ animal.peso }}</td>
-                    <td>{{ animal.dtNasc | date('d-m-y') }}</td>    
-                    <td >Vivo</td>              
-                
-               {% endif %}
-                    <td>
-                        <a href="{{ path('animal_editar', {id: animal.id}) }}" class="btn btn-primary">Editar</a>
-                        <a href="{{ path('animal_excluir', {id: animal.id}) }}" class="btn btn-danger">Excluir</a>                        
-                    </td>
-                </tr>
-            {% endfor %}
-       
-    </table>
+    <tr>
+        {# sorting of properties based on query components #}
+        <th {% if pagination.isSorted('a.Id') %} class="sorted" {% endif %}>
+            {{ knp_pagination_sortable(pagination, 'Id', 'a.id') }}
+        </th>
+        <th {% if pagination.isSorted('a.descricao') %} class="sorted" {% endif %}>
+            {{ knp_pagination_sortable(pagination, 'Descrição', 'a.descricao') }}
+        </th>
+        <th {% if pagination.isSorted('a.peso') %} class="sorted" {% endif %}>
+            {{ knp_pagination_sortable(pagination, 'Peso', 'a.peso') }}
+        </th>
+        <th {% if pagination.isSorted('a.qtdleite') %} class="sorted" {% endif %}>
+            {{ knp_pagination_sortable(pagination, 'Qtd Leite', 'a.qtdleite') }}
+        </th>
+        <th {% if pagination.isSorted('a.qtdracao') %} class="sorted" {% endif %}>
+            {{ knp_pagination_sortable(pagination, 'Qtd Ração', 'a.qtdracao') }}
+        </th>
+        <th {% if pagination.isSorted(['a.dtNasc']) %} class="sorted" {% endif %}>
+            {{ knp_pagination_sortable(pagination, 'Dt Nasc', ['a.dtNasc']) }}
+        </th>
+        <th {% if pagination.isSorted(['a.status']) %} class="sorted" {% endif %}>
+            {{ knp_pagination_sortable(pagination, 'Status', ['a.status']) }}
+        </th>
+        <th class="sorted">Ações</th>
+    </tr>
+    {# table body #}
+    {% for animal in pagination %}
+    {% if animal.status %}
+    <tr>
+        <td style="color: red;">{{ animal.id }}</td>
+        <td style="color: red;">{{ animal.descricao }}</td>
+        <td style="color: red;">{{ animal.qtdleite }}</td>
+        <td style="color: red;">{{ animal.qtdracao }}</td>
+        <td style="color: red;">{{ animal.peso }}</td>
+        <td style="color: red;">{{ animal.dtNasc | date('d-m-y') }}</td>
+        <td style="color: red;">Abatido</td>
+        {% else %}
+    <tr>
+        <td>{{ animal.id }}</td>
+        <td>{{ animal.descricao }}</td>
+        <td>{{ animal.qtdleite }}</td>
+        <td>{{ animal.qtdracao }}</td>
+        <td>{{ animal.peso }}</td>
+        <td>{{ animal.dtNasc | date('d-m-y') }}</td>
+        <td>Vivo</td>
+        {% endif %}
+        <td>
+            <a href="{{ path('animal_editar', {id: animal.id}) }}" class="btn btn-primary">Editar</a>
+            <a href="{{ path('animal_excluir', {id: animal.id}) }}" class="btn btn-danger">Excluir</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
 {# display navigation #}
 <div class="navigation">
     {{ knp_pagination_render(pagination) }}
