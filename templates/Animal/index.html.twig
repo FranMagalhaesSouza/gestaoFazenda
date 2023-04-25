@@ -5,7 +5,7 @@
 
 <form method="get">
     <label> Pesquisar pela descrição </label>
-    <input type="text" name="descricao" class="form-control" value="{{descricao}}" />
+    <input type="text" name="pesquisarDescricao" class="form-control" value="{{pesquisaDescricao}}" />
     <button type="submit" class="btn btn-primary" style="margin-top: 10px"> Pesquisar </button>
     <a href="{{ path('animal_cadastrar') }}" class="btn btn-primary" style="margin-top: 10px">Cadastrar Animal</a>
 </form>
@@ -41,19 +41,19 @@
     <tr>
         <td style="color: red;">{{ animal.id }}</td>
         <td style="color: red;">{{ animal.descricao }}</td>
-        <td style="color: red;">{{ animal.qtdleite }}</td>
-        <td style="color: red;">{{ animal.qtdracao }}</td>
-        <td style="color: red;">{{ animal.peso }}</td>
-        <td style="color: red;">{{ animal.dtNasc | date('d-m-y') }}</td>
+        <td style="color: red;">{{ animal.peso | number_format(2, '.', ',')}}</td>
+        <td style="color: red;">{{ animal.qtdleite | number_format(2, '.', ',')}}</td>
+        <td style="color: red;">{{ animal.qtdracao | number_format(2, '.', ',')}}</td>
+        <td style="color: red;">{{ animal.dtNasc | date('d/m/Y') }}</td>
         <td style="color: red;">Abatido</td>
         {% else %}
     <tr>
         <td>{{ animal.id }}</td>
         <td>{{ animal.descricao }}</td>
-        <td>{{ animal.qtdleite }}</td>
-        <td>{{ animal.qtdracao }}</td>
-        <td>{{ animal.peso }}</td>
-        <td>{{ animal.dtNasc | date('d-m-y') }}</td>
+        <td>{{ animal.peso | number_format(2, '.', ',')}}</td>
+        <td>{{ animal.qtdleite | number_format(2, '.', ',')}}</td>
+        <td>{{ animal.qtdracao | number_format(2, '.', ',')}}</td>
+        <td>{{ animal.dtNasc | date('d/m/Y') }}</td>
         <td>Vivo</td>
         {% endif %}
         <td>

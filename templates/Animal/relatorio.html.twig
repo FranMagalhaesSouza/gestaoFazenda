@@ -34,10 +34,10 @@
         <tr {% if loop.index is odd %}class="color" {% endif %}>
             <td>{{ animal.id }}</td>
             <td>{{ animal.descricao }}</td>
-            <td>{{ animal.peso }}</td>
-            <td>{{ animal.qtdleite }}</td>
-            <td>{{ animal.qtdracao }}</td>
-            <td>{{ animal.dtNasc | date('d-m-y') }}</td>
+            <td>{{ animal.peso | number_format(2, '.', ',')}}</td>
+            <td>{{ animal.qtdleite | number_format(2, '.', ',')}}</td>
+            <td>{{ animal.qtdracao | number_format(2, '.', ',')}}</td>
+            <td>{{ animal.dtNasc | date('d/m/Y') }}</td>
             <td>
                 <a href="{{ path('animal_abater', {id: animal.id}) }}" class="btn btn-danger">Abater Animal</a>
             </td>
