@@ -103,7 +103,7 @@ class AnimalController extends AbstractController
                 $data['titulo'] = 'Editar animal';
                 $data['form'] = $form;
 
-                return $this->render('Animal/form.html.twig', $data);
+                return $this->render('animal/form.html.twig', $data);
             } else {
                 $message = $messageGenerator->getMessageUpdateError();
                 $this->addFlash('error', $message);
@@ -187,7 +187,7 @@ class AnimalController extends AbstractController
             );
             $data['titulo'] = "Animais para Abater";
             $data['pagination'] = $pagination;
-            return $this->render('Animal/relatorio.html.twig', $data);
+            return $this->render('animal/relatorio.html.twig', $data);
         } catch (Exception $e) {
             $this->addFlash(
                 'error',
@@ -211,7 +211,7 @@ class AnimalController extends AbstractController
             );
             $data['titulo'] = "Animais Abatidos";
             $data['pagination'] = $pagination;
-            return $this->render('Animal/relatorioAbatidos.html.twig', $data);
+            return $this->render('animal/relatorioAbatidos.html.twig', $data);
         } catch (Exception $e) {
             $this->addFlash(
                 'error',
