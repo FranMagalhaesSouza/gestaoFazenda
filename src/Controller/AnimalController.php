@@ -39,7 +39,7 @@ class AnimalController extends AbstractController
             $data['pesquisaDescricao'] = $pesquisadescricaoanimal;
             $data['titulo'] = 'Gerenciar Animais';
 
-            return $this->render('Animal/index.html.twig', $data);
+            return $this->render('animal/index.html.twig', $data);
         } catch (Exception $e) {
             $this->addFlash(
                 'error',
@@ -73,7 +73,7 @@ class AnimalController extends AbstractController
             $data['titulo'] = 'Cadastrar novo animal';
             $data['form'] = $form;
 
-            return $this->render('Animal/form.html.twig', $data);
+            return $this->render('animal/form.html.twig', $data);
         } catch (Exception $e) {
             $this->addFlash(
                 'error',
